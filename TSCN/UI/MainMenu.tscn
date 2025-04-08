@@ -1,0 +1,442 @@
+[gd_scene load_steps=18 format=3 uid="uid://brkmcjfpa00ky"]
+
+[ext_resource type="Script" uid="uid://b0wot2tmy23mp" path="res://Scripts/UI/MainMenu.gd" id="1_at5rq"]
+[ext_resource type="AudioStream" uid="uid://clp1xmjt5kh1" path="res://Audio/Sound/Beat3.ogg" id="2_h4a2y"]
+[ext_resource type="AudioStream" uid="uid://bf6lkwyesltpu" path="res://Audio/Music/Melody.ogg" id="3_otpa8"]
+[ext_resource type="Shader" uid="uid://0djd457nx0f" path="res://Graphics/Shaders/WaterPress.gdshader" id="4_862xg"]
+[ext_resource type="Texture2D" uid="uid://bpgf1vsjnqo0w" path="res://Graphics/Logo.svg" id="5_ljn2b"]
+
+[sub_resource type="Animation" id="Animation_c4phl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="4"]
+length = 8.006
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.913725, 1, 1, 1), Color(1, 0.929412, 1, 1), Color(1, 1, 0.941176, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_opvjt"]
+_data = {
+&"RESET": SubResource("Animation_c4phl"),
+&"animated_backgroun": SubResource("4")
+}
+
+[sub_resource type="Theme" id="Theme_wx5hq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2x4ed"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.270222, 0.270222, 0.270222, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_1wej2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sryor"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.270222, 0.270222, 0.270222, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dkqnd"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_neyjc"]
+shader = ExtResource("4_862xg")
+shader_parameter/wave_count = 1.0
+shader_parameter/speed = 0.2
+shader_parameter/height = 0.003
+
+[sub_resource type="Animation" id="Animation_5ik2x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Efectos/TransitionRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Efectos/TransitionRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uv1vb"]
+resource_name = "introStory"
+length = 5.9945
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Efectos/TransitionRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Efectos/TransitionRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gfqvw"]
+_data = {
+&"RESET": SubResource("Animation_5ik2x"),
+&"introStory": SubResource("Animation_uv1vb")
+}
+
+[node name="World" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 80)
+script = ExtResource("1_at5rq")
+
+[node name="Fondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fondo"]
+libraries = {
+&"": SubResource("AnimationLibrary_opvjt")
+}
+
+[node name="Botones" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 32.0
+offset_right = 320.0
+offset_bottom = 128.0
+
+[node name="NewB2" type="Button" parent="Botones"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -56.0
+offset_right = 56.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_next = NodePath(".")
+theme = SubResource("Theme_wx5hq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2x4ed")
+metadata/_edit_group_ = true
+
+[node name="NewB2" type="Label" parent="Botones/NewB2"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 20.0
+focus_next = NodePath(".")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_1wej2")
+theme_override_font_sizes/font_size = 12
+text = "story"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfiniteB" type="Button" parent="Botones"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -32.0
+offset_right = 56.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_next = NodePath(".")
+theme = SubResource("Theme_wx5hq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_2x4ed")
+metadata/_edit_group_ = true
+
+[node name="InfiniteB2" type="Label" parent="Botones/InfiniteB"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 20.0
+focus_next = NodePath(".")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_1wej2")
+theme_override_font_sizes/font_size = 12
+text = "infinite"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConstructorB" type="Button" parent="Botones"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -8.0
+offset_right = 56.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_sryor")
+metadata/_edit_group_ = true
+
+[node name="ConstructorB" type="Label" parent="Botones/ConstructorB"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 20.0
+focus_next = NodePath(".")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "constructor"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsB" type="Button" parent="Botones"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = 16.0
+offset_right = 56.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_sryor")
+metadata/_edit_group_ = true
+
+[node name="OptionsB" type="Label" parent="Botones/OptionsB"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 20.0
+focus_next = NodePath(".")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelsB" type="Button" parent="Botones"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -56.0
+offset_right = 112.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_sryor")
+disabled = true
+metadata/_edit_group_ = true
+
+[node name="LevelsB" type="Label" parent="Botones/LevelsB"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_next = NodePath(".")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "levels"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExitB" type="Button" parent="Botones"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = 40.0
+offset_right = 56.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_dkqnd")
+metadata/_edit_group_ = true
+
+[node name="ExitB" type="Label" parent="Botones/ExitB"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 20.0
+focus_next = NodePath(".")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "exit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Accept" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("2_h4a2y")
+pitch_scale = 6.0
+bus = &"Sound"
+
+[node name="Music" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("3_otpa8")
+bus = &"Music"
+
+[node name="Move" type="AudioStreamPlayer" parent="Audio"]
+pitch_scale = 16.0
+bus = &"Sound"
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Fecha" type="Label" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -24.0
+offset_right = -256.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "2025"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActualLevel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -176.0
+offset_top = -160.0
+offset_right = -144.0
+offset_bottom = -143.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Autor" type="Label" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "Alejandro Colombo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Efectos" type="CanvasLayer" parent="."]
+
+[node name="Efecto" type="ColorRect" parent="Efectos"]
+visible = false
+material = SubResource("ShaderMaterial_neyjc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="TransitionRect" type="ColorRect" parent="Efectos"]
+visible = false
+offset_right = 320.0
+offset_bottom = 160.0
+
+[node name="Mascota" type="Sprite2D" parent="."]
+
+[node name="Logo" type="Sprite2D" parent="."]
+position = Vector2(152, -76)
+scale = Vector2(0.296723, 0.296723)
+texture = ExtResource("5_ljn2b")
+
+[node name="Cinema" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gfqvw")
+}
+
+[connection signal="pressed" from="Botones/NewB2" to="." method="_on_new_b_pressed"]
+[connection signal="pressed" from="Botones/InfiniteB" to="." method="_on_infinite_pressed"]
+[connection signal="pressed" from="Botones/ConstructorB" to="." method="_on_constructor_b_pressed"]
+[connection signal="pressed" from="Botones/OptionsB" to="." method="_on_options_b_pressed"]
+[connection signal="pressed" from="Botones/LevelsB" to="." method="_on_levels_b_pressed"]
+[connection signal="pressed" from="Botones/ExitB" to="." method="_on_exit_b_pressed"]

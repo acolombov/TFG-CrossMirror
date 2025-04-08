@@ -1,0 +1,467 @@
+[gd_scene load_steps=12 format=3 uid="uid://bf7wlvgpdkidh"]
+
+[ext_resource type="Script" uid="uid://bni7vy6hwpaxm" path="res://Scripts/UI/ResponsiveWindow.gd" id="1_67w8q"]
+[ext_resource type="FontFile" uid="uid://b48ttntfs47a2" path="res://Graphics/Fonts/homespun.ttf" id="2_fep28"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vx8v8"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.384314, 0.368627, 0.368627, 0.494118)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ph2b2"]
+bg_color = Color(0.888296, 0.412247, 0.633773, 1)
+
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("2_fep28"), ExtResource("2_fep28")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/2/0/ascent = 0.0
+cache/0/2/0/descent = 0.0
+cache/0/2/0/underline_position = 0.0
+cache/0/2/0/underline_thickness = 0.0
+cache/0/2/0/scale = 1.0
+cache/0/3/0/ascent = 0.0
+cache/0/3/0/descent = 0.0
+cache/0/3/0/underline_position = 0.0
+cache/0/3/0/underline_thickness = 0.0
+cache/0/3/0/scale = 1.0
+cache/0/4/0/ascent = 0.0
+cache/0/4/0/descent = 0.0
+cache/0/4/0/underline_position = 0.0
+cache/0/4/0/underline_thickness = 0.0
+cache/0/4/0/scale = 1.0
+cache/0/5/0/ascent = 0.0
+cache/0/5/0/descent = 0.0
+cache/0/5/0/underline_position = 0.0
+cache/0/5/0/underline_thickness = 0.0
+cache/0/5/0/scale = 1.0
+cache/0/6/0/ascent = 0.0
+cache/0/6/0/descent = 0.0
+cache/0/6/0/underline_position = 0.0
+cache/0/6/0/underline_thickness = 0.0
+cache/0/6/0/scale = 1.0
+cache/0/7/0/ascent = 0.0
+cache/0/7/0/descent = 0.0
+cache/0/7/0/underline_position = 0.0
+cache/0/7/0/underline_thickness = 0.0
+cache/0/7/0/scale = 1.0
+cache/0/8/0/ascent = 0.0
+cache/0/8/0/descent = 0.0
+cache/0/8/0/underline_position = 0.0
+cache/0/8/0/underline_thickness = 0.0
+cache/0/8/0/scale = 1.0
+cache/0/9/0/ascent = 0.0
+cache/0/9/0/descent = 0.0
+cache/0/9/0/underline_position = 0.0
+cache/0/9/0/underline_thickness = 0.0
+cache/0/9/0/scale = 1.0
+cache/0/10/0/ascent = 0.0
+cache/0/10/0/descent = 0.0
+cache/0/10/0/underline_position = 0.0
+cache/0/10/0/underline_thickness = 0.0
+cache/0/10/0/scale = 1.0
+cache/0/11/0/ascent = 0.0
+cache/0/11/0/descent = 0.0
+cache/0/11/0/underline_position = 0.0
+cache/0/11/0/underline_thickness = 0.0
+cache/0/11/0/scale = 1.0
+cache/0/12/0/ascent = 0.0
+cache/0/12/0/descent = 0.0
+cache/0/12/0/underline_position = 0.0
+cache/0/12/0/underline_thickness = 0.0
+cache/0/12/0/scale = 1.0
+cache/0/13/0/ascent = 0.0
+cache/0/13/0/descent = 0.0
+cache/0/13/0/underline_position = 0.0
+cache/0/13/0/underline_thickness = 0.0
+cache/0/13/0/scale = 1.0
+cache/0/14/0/ascent = 0.0
+cache/0/14/0/descent = 0.0
+cache/0/14/0/underline_position = 0.0
+cache/0/14/0/underline_thickness = 0.0
+cache/0/14/0/scale = 1.0
+cache/0/15/0/ascent = 0.0
+cache/0/15/0/descent = 0.0
+cache/0/15/0/underline_position = 0.0
+cache/0/15/0/underline_thickness = 0.0
+cache/0/15/0/scale = 1.0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m08qa"]
+size = Vector2(8, 8)
+
+[sub_resource type="Theme" id="Theme_67w8q"]
+default_font_size = 25
+
+[sub_resource type="Animation" id="Animation_k1y8a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Opciones:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Niveles:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_vlrtm"]
+resource_name = "pop"
+length = 1.0195
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 25.1067),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ukbhb"]
+_data = {
+&"RESET": SubResource("Animation_k1y8a"),
+&"pop": SubResource("Animation_vlrtm")
+}
+
+[node name="Opciones" type="Control"]
+custom_minimum_size = Vector2(160, 80)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -40.0
+offset_right = 80.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(80, 40)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 1
+script = ExtResource("1_67w8q")
+
+[node name="ColorRect" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vx8v8")
+
+[node name="SupBar" type="Panel" parent="."]
+editor_description = "Si el cursor está encima permite moverlo"
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.25
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 32)
+theme_override_styles/panel = SubResource("2")
+
+[node name="Close" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.924
+anchor_top = 0.05
+anchor_right = 0.9745
+anchor_bottom = 0.15
+offset_left = 0.160004
+theme_override_styles/normal = SubResource("StyleBoxFlat_ph2b2")
+metadata/_edit_use_anchors_ = true
+
+[node name="Opciones" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 162.0
+offset_bottom = 82.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Opciones"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.4
+offset_left = 2.0
+offset_top = 1.2
+offset_right = 2.0
+offset_bottom = 1.2
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("1")
+theme_override_font_sizes/font_size = 12
+text = "language"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="played" type="Label" parent="Opciones"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.4
+offset_left = 10.0
+offset_top = 33.2
+offset_right = -24.0
+offset_bottom = 26.2
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("1")
+theme_override_font_sizes/font_size = 7
+text = "hours_played"
+vertical_alignment = 1
+
+[node name="TimeJ" type="Label" parent="Opciones"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.4
+offset_left = 36.0
+offset_top = 32.2
+offset_right = -37.0
+offset_bottom = 25.2
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("1")
+theme_override_font_sizes/font_size = 8
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Idioma" type="Control" parent="Opciones"]
+anchors_preset = 0
+offset_left = 82.0
+offset_top = 18.0
+offset_right = 162.0
+offset_bottom = 42.0
+mouse_filter = 2
+
+[node name="Language" type="Label" parent="Opciones/Idioma"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.75
+anchor_right = 1.0
+anchor_bottom = 0.25
+offset_top = 18.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("1")
+theme_override_font_sizes/font_size = 12
+text = "[idioma]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Left" type="TextureButton" parent="Opciones/Idioma"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 10.0
+offset_right = 16.0
+offset_bottom = 18.0
+texture_normal = SubResource("PlaceholderTexture2D_m08qa")
+
+[node name="Right" type="TextureButton" parent="Opciones/Idioma"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 10.0
+offset_right = 72.0
+offset_bottom = 18.0
+texture_normal = SubResource("PlaceholderTexture2D_m08qa")
+
+[node name="Stats" type="Button" parent="Opciones"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.6
+anchor_right = 0.45
+anchor_bottom = 0.9125
+offset_left = 1.7
+offset_top = -0.400002
+offset_right = 1.7
+offset_bottom = -0.400002
+theme_override_font_sizes/font_size = 8
+text = "statistics"
+clip_text = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Stats3" type="Button" parent="Opciones"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.75
+anchor_right = 0.275
+anchor_bottom = 0.9625
+offset_left = 1.9
+offset_top = -1.0
+offset_right = 1.9
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 6
+text = "erase data"
+
+[node name="Audio" type="Control" parent="Opciones"]
+anchors_preset = 0
+offset_left = 62.0
+offset_top = 38.0
+offset_right = 126.0
+offset_bottom = 58.0
+
+[node name="played3" type="Label" parent="Opciones/Audio"]
+layout_mode = 1
+offset_left = -4.0
+offset_top = 12.0
+offset_right = 42.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("1")
+theme_override_font_sizes/font_size = 8
+text = "music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="played4" type="Label" parent="Opciones/Audio"]
+layout_mode = 1
+offset_left = -4.0
+offset_top = 28.0
+offset_right = 42.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("1")
+theme_override_font_sizes/font_size = 8
+text = "sound"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats2" type="Button" parent="Opciones/Audio"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.2
+anchor_right = 0.75
+anchor_bottom = 0.5125
+offset_left = -23.0
+offset_top = -24.0
+offset_right = 3.0
+offset_bottom = -11.5
+theme_override_font_sizes/font_size = 12
+text = "audio"
+metadata/_edit_use_anchors_ = true
+
+[node name="Music" type="SpinBox" parent="Opciones/Audio"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 4.0
+offset_right = 158.0
+offset_bottom = 47.0
+scale = Vector2(0.43, 0.43)
+theme = SubResource("Theme_67w8q")
+min_value = -80.0
+max_value = 10.0
+value = 1.0
+rounded = true
+alignment = 1
+
+[node name="Sound" type="SpinBox" parent="Opciones/Audio"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 20.0
+offset_right = 158.0
+offset_bottom = 63.0
+scale = Vector2(0.43, 0.43)
+theme = SubResource("Theme_67w8q")
+min_value = -80.0
+max_value = 10.0
+value = 1.0
+rounded = true
+alignment = 1
+
+[node name="Niveles" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_top = 16.0
+offset_right = 160.0
+offset_bottom = 80.0
+
+[node name="GridContainer" type="GridContainer" parent="Niveles"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 152.0
+offset_bottom = 56.0
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ukbhb")
+}
+
+[connection signal="mouse_entered" from="SupBar" to="." method="_on_sup_bar_mouse_entered"]
+[connection signal="mouse_exited" from="SupBar" to="." method="_on_sup_bar_mouse_exited"]
+[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Opciones/Idioma/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Opciones/Idioma/Right" to="." method="_on_right_pressed"]
+[connection signal="value_changed" from="Opciones/Audio/Music" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="Opciones/Audio/Sound" to="." method="_on_sound_value_changed"]

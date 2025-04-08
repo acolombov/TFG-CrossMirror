@@ -1,0 +1,69 @@
+[gd_resource type="AudioBusLayout" load_steps=9 format=3 uid="uid://c3gfppxrvcxrr"]
+
+[sub_resource type="AudioEffectPanner" id="1"]
+resource_name = "Panner"
+pan = 0.59
+
+[sub_resource type="AudioEffectPhaser" id="2"]
+resource_name = "Phaser"
+range_min_hz = 2382.51
+depth = 1.5
+
+[sub_resource type="AudioEffectDelay" id="3"]
+resource_name = "Delay"
+dry = 0.2
+
+[sub_resource type="AudioEffectFilter" id="4"]
+resource_name = "Filter"
+
+[sub_resource type="AudioEffectPitchShift" id="5"]
+resource_name = "PitchShift"
+pitch_scale = 4.01
+
+[sub_resource type="AudioEffectDistortion" id="6"]
+resource_name = "Distortion"
+mode = 2
+pre_gain = 3.53
+drive = 0.74
+post_gain = -4.41
+
+[sub_resource type="AudioEffectReverb" id="7"]
+resource_name = "Reverb"
+room_size = 1.0
+damping = 1.0
+hipass = 1.0
+wet = 1.0
+
+[sub_resource type="AudioEffectPitchShift" id="8"]
+resource_name = "PitchShift"
+
+[resource]
+bus/0/volume_db = -3.54298
+bus/0/effect/0/effect = SubResource("1")
+bus/0/effect/0/enabled = false
+bus/1/name = &"Music"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = -3.6179
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("2")
+bus/1/effect/0/enabled = false
+bus/1/effect/1/effect = SubResource("3")
+bus/1/effect/1/enabled = false
+bus/1/effect/2/effect = SubResource("4")
+bus/1/effect/2/enabled = false
+bus/1/effect/3/effect = SubResource("5")
+bus/1/effect/3/enabled = false
+bus/1/effect/4/effect = SubResource("6")
+bus/1/effect/4/enabled = false
+bus/2/name = &"Sound"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = -3.6179
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("7")
+bus/2/effect/0/enabled = false
+bus/2/effect/1/effect = SubResource("8")
+bus/2/effect/1/enabled = false

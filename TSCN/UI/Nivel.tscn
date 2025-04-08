@@ -1,0 +1,799 @@
+[gd_scene load_steps=21 format=3 uid="uid://b6yuthjmjvpcx"]
+
+[ext_resource type="Shader" uid="uid://ceb82e4412iyi" path="res://Graphics/Shaders/Squares.gdshader" id="1_un8bf"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/panel_juego.tscn" id="2_o8s4n"]
+
+[sub_resource type="GDScript" id="GDScript_r23as"]
+script/source = "extends Control
+
+# este código lleva la lógica del juego en su estado final (grid ya generado)
+# La idea es que todos los subniveles se sucedan en la misma instancia de Nivel
+
+
+#var victory = false
+var next = false
+var backwards = false
+var hoveredButton = null
+
+var n_errorL = 0 # errores del subnivel
+
+var n_errorT = 0 # errores totales de la sesión
+
+
+var sblvl = 0 # subnivel
+var aciertos = 0
+
+var lvl = Main.lvl # nivel en el que se encuentra el jugador
+#var totalP = Main.totalP # número de aciertos necesarios
+
+
+
+var grid = null #guarda el nivel (lvl) de la fase
+var pause = false
+#var panel = load(\"res://Scenes/panel_juego.tscn\").instantiate()
+
+var menu = false
+
+var infoBut 
+var drawing = false # interpreta cuándo se está pintando
+var spotted = false # interpreta si se ha presionado una casilla correcta
+var stopdraw = false
+
+@onready var transitionsPlayer = $AnimationPlayer
+@onready var hoverSoundPlayer = $Audio/Hover
+@onready var panel = $Tablero/Control/PanelJuego
+
+func _ready() -> void:
+	
+	Main.totalP = 0
+	#Main.mode = \"Infinito\"
+	
+	grid = nextLevel()
+	
+	transitionsPlayer.play(\"Phase\"+str(Main.phaseNum))
+
+	
+	
+	
+	
+	Main.boardSize = len(grid)
+	
+	panel.createButtons()
+	panel.createGuides()
+	
+	
+	
+	
+	
+
+func _process(_delta: float) -> void:
+	
+	
+	
+	updateLabels()
+	#print(transitionsPlayer.get_playing_speed())
+	
+	if aciertos != 0 and aciertos == Main.totalP:
+		
+		# guardar
+
+		pause = true
+		aciertos = 0
+		Main.totalP = 0
+		lvl += 1
+		
+		
+		#if len(grid) == 1:
+			#
+			#grid = randomLevel(grid[0][0])
+			
+		grid = nextLevel()
+		
+
+		transitionsPlayer.play(\"Victory\")
+		backwards = false
+		#transitionsPlayer.connect(\"animation_started\",self)
+
+		
+	if Input.is_action_just_pressed(\"mouseLeft\") and $Victory/ResetButton.button_pressed and next == true:
+			
+			next = false
+			transitionsPlayer.play_backwards(\"Victory\")
+			backwards = true
+			
+			#panel.restartScene()
+			panel.createButtons(self)
+			panel.createGuides()
+			#panel.createButtons(self)
+			#$Victory/ResetButton.disabled
+			
+			#Main.boardSize = grid[lvl]
+	if Input.is_action_just_pressed(\"ui_end\") and $UI.get_node(\"Menu\") == null:
+		
+		menu = true
+		var pauseMenu = load(\"res://TSCN/UI/pause_menu.tscn\").instantiate()
+		pauseMenu.name = \"Menu\"
+		$UI.add_child(pauseMenu)
+	
+	
+	if Input.is_action_pressed(\"mouseLeft\"):
+		
+		if stopdraw == false:
+			drawing = true
+	
+	
+	if Input.is_action_just_released(\"mouseLeft\"):
+		
+		drawing = false
+		stopdraw = false
+	#
+	#if infoBut != null:
+		#
+		#if drawing:
+			#
+			#if infoBut[0] == 1 and spotted:
+				#
+				#aciertos += 1
+
+				#hoveredButton.disabled = true
+				#hoveredButton.set(\"theme_override_styles/focus\",StyleBoxEmpty.new())
+				#spotted = false
+				#
+			#if infoBut[0] == 0: # si ha dejado de encontrar correctos
+				#drawing = false
+				#stopdraw = true
+				#n_errorL += 1
+				#n_errorT += 1
+	
+	#if infoBut != null:
+		#
+		#if infoBut[0] == 1 and drawing: # acierto # botonHover = 4 -> fila = 2 -> grid[lvl][2][4]
+			#
+
+			#
+			#pass
+			##theme_override_styles.disabled_mirrored.bg_color = grid[hoveredButton.get_index()][1] # extrae el color del grid
+			#
+		#elif drawing:
+			#
+			#n_errorL += 1
+			#n_errorT += 1
+			#drawing = false
+		
+		
+
+
+
+func updateLabels() -> void: # etiquetas de la interfaz
+
+	$UI/Phase.text = str(Main.phaseNum)
+	$UI/NvLabel.text = str(lvl+1) # +1 para ajustarse al ojo (0 para índices de array)
+	$UI/ErrLabelL.text = str(n_errorL)
+	$UI/ErrLabelT.text = str(n_errorT)
+	
+func _paint(button: Button) -> void:
+	
+	
+	if button.disabled: # significa que ya ha sido presionado
+		return
+	
+	
+	infoBut = grid[button.get_index()]
+	
+	if infoBut[0] == 1:
+		aciertos += 1
+		button.disabled = true
+		button.set(\"theme_override_styles/focus\", StyleBoxEmpty.new())
+	else:
+		n_errorL += 1
+		n_errorT += 1
+		stopdraw = true  # Bloquea la pintura (hold) si comete un error
+
+func _on_hover(button: Button) -> void: # al pasar encima de cualquier botón
+	
+	hoverSoundPlayer.play()
+	
+	#hoveredButton = button
+	
+	if drawing and stopdraw == false:
+		_paint(button)
+
+func _on_pressed(button: Button) -> void: # 
+	
+	if stopdraw == false:
+		_paint(button)
+		
+	
+	#if hoveredButton != null: # interpreta el botón que va a ser presionado
+		#
+		#infoBut = grid[hoveredButton.get_index()] # [Respuesta],[Color]
+		#spotted = true
+		#
+		#if infoBut[0] == 1:
+			#aciertos += 1
+			#hoveredButton.disabled = true
+			#hoveredButton.set(\"theme_override_styles/focus\",StyleBoxEmpty.new())
+		#else:
+			#n_errorL += 1
+			#n_errorT += 1
+
+	#if infoBut != null:
+		#
+		#if infoBut[0] == 1 and drawing:
+			#
+			#aciertos += 1
+			
+			#hoveredButton.disabled = true
+			#hoveredButton.set(\"theme_override_styles/focus\",StyleBoxEmpty.new())
+	
+#func _on_gui_input(event: InputEvent) -> void:
+	#if event is InputEventMouseButton:
+		#
+		#if event.button_index == MOUSE_BUTTON_LEFT:
+			#drawing = true
+			
+		
+	
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		#
+		#if hoveredButton != null:
+			#hoveredButton.icon = true
+	
+func nextLevel(): # determina fase de juego
+	
+	match Main.mode:
+		
+		\"Historia\":
+			
+			if grid != null:
+		
+				if lvl > len(grid): # si ya no hay más niveles
+					
+					Main.phaseNum += 1
+					lvl = 0
+			
+			match Main.phaseNum:
+			
+				1: # Fase 1
+					grid = Main.phase1[lvl]
+				2: # Fase 2
+					grid = Main.phase2[lvl]
+					transitionsPlayer.play(\"Phase2\")
+				3: # Fase 3
+					grid = Main.phase3[lvl]
+					transitionsPlayer.play(\"Phase3\")
+			
+		\"Infinito\":
+			
+			grid = Main.randomLevel(randi_range(3,10))
+			
+		\"Constructor\":
+			pass
+	
+	Main.boardSize = len(grid)
+
+	
+	return grid
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	
+	
+	if anim_name == \"Victory\" and backwards == false: # mayor que 0 quiere decir que NO está reproduciéndose al revés
+		
+		n_errorL = 0
+		panel.restartScene()
+
+		next = true
+		
+		
+"
+
+[sub_resource type="Theme" id="Theme_0smuq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ashhu"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kegjr"]
+shader = ExtResource("1_un8bf")
+shader_parameter/size = 28.578
+shader_parameter/color1 = Color(1, 1, 1, 1)
+shader_parameter/color2 = Color(0.7, 0.7, 0.7, 1)
+shader_parameter/speed = 0.5
+shader_parameter/direction_x = 1.0
+shader_parameter/direction_y = 1.0
+
+[sub_resource type="Shader" id="Shader_mgdms"]
+code = "// Converted/modified from ShaderToy: https://www.shadertoy.com/view/ldBXDD
+// Attach this shader to a ColorRect
+// by Nevoski (https://godotshaders.com/shader/ripple-shader/)
+
+shader_type canvas_item;
+
+uniform float wave_count : hint_range(1.0, 20.0, 1.0) = 20.0;
+uniform float speed : hint_range(0.0, 10.0, 0.1) = 3.0;
+uniform float height : hint_range(0.0, 0.1, 0.001) = 0.003;
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+
+void fragment() {
+vec2 cPos = -1.0 + 2.0 * UV;
+float cLength = length(cPos);
+vec2 uv = SCREEN_UV + (cPos/cLength) * cos(cLength * wave_count - TIME * speed) * height;
+vec3 col = textureLod(screen_texture,uv, 0.0).xyz;
+COLOR = vec4(col,1.0);
+
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3tma"]
+shader = SubResource("Shader_mgdms")
+shader_parameter/wave_count = 20.0
+shader_parameter/speed = 6.9
+shader_parameter/height = 0.007
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3q4av"]
+size = Vector2(292, 136)
+
+[sub_resource type="Animation" id="Animation_fs2bk"]
+resource_name = "Sweetboy"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e7hb0"]
+_data = {
+&"Sweetboy": SubResource("Animation_fs2bk")
+}
+
+[sub_resource type="Animation" id="Animation_8q2tf"]
+resource_name = "Phase1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fondo:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_o4b3k"]
+resource_name = "Phase2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fondo:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.0980392, 1, 0.929412, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_d35ci"]
+resource_name = "Phase3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fondo:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.933333, 0.631373, 0.952941, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3ihjc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Victory/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Victory/ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Victory/ResetButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Victory/ResetButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Victory/ResetButton:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Fondo:theme_override_styles/panel:bg_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mxuro"]
+resource_name = "Victory"
+length = 2.52
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Victory/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Victory/ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Victory/ResetButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.9, 2.03333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Victory/ResetButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.89, 2.03333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Victory/ResetButton:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.03333, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_120ii"]
+_data = {
+&"Phase1": SubResource("Animation_8q2tf"),
+&"Phase2": SubResource("Animation_o4b3k"),
+&"Phase3": SubResource("Animation_d35ci"),
+&"RESET": SubResource("Animation_3ihjc"),
+&"Victory": SubResource("Animation_mxuro")
+}
+
+[sub_resource type="SystemFont" id="SystemFont_da568"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4a8r"]
+bg_color = Color(0.917179, 0.387379, 0.610173, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fe74o"]
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[node name="Nivel" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_r23as")
+
+[node name="Fondo" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 336.0
+offset_bottom = 176.0
+theme = SubResource("Theme_0smuq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ashhu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_kegjr")
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 160.0
+
+[node name="Waves" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_g3tma")
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 160.0
+
+[node name="Tablero" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Tablero"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_right = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 1, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Tablero"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.490627, 0.589643, 1, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Tablero"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.490627, 0.589643, 1, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Tablero"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.0701471, 0.981821, 1)
+
+[node name="Control" parent="Tablero" instance=ExtResource("2_o8s4n")]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+
+[node name="Guías" type="Control" parent="Tablero"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 80)
+mouse_filter = 2
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(160, 80)
+editor_draw_limits = true
+
+[node name="Left" type="Marker2D" parent="Camera2D"]
+position = Vector2(-176, -96)
+
+[node name="Right" type="Marker2D" parent="Camera2D"]
+position = Vector2(176, 96)
+
+[node name="Area2D" type="Area2D" parent="Camera2D"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Area2D"]
+position = Vector2(-2, -4)
+shape = SubResource("RectangleShape2D_3q4av")
+debug_color = Color(0, 0.6, 0.701961, 0.243137)
+
+[node name="Cinematics" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationPlayer")
+libraries = {
+&"": SubResource("AnimationLibrary_e7hb0")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_120ii")
+}
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Audio"]
+
+[node name="Hover" type="AudioStreamPlayer2D" parent="Audio"]
+pitch_scale = 4.0
+attenuation = 7.46426
+bus = &"Sound"
+
+[node name="Move" type="AudioStreamPlayer2D" parent="Audio"]
+
+[node name="Draw" type="AudioStreamPlayer2D" parent="Audio"]
+editor_description = "Al dibujar
+Dependiendo del color podría variar una octava"
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ErrLabelL" type="Label" parent="UI"]
+modulate = Color(1, 1, 1, 0.541176)
+offset_left = 264.0
+offset_top = 92.0
+offset_right = 304.0
+offset_bottom = 115.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_da568")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o4a8r")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="ErrLabelT" type="Label" parent="UI"]
+modulate = Color(1, 1, 1, 0.541176)
+offset_left = 264.0
+offset_top = 120.0
+offset_right = 304.0
+offset_bottom = 143.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_da568")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o4a8r")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="NvLabel" type="Label" parent="UI"]
+modulate = Color(1, 1, 1, 0.541176)
+offset_left = 20.0
+offset_top = 40.0
+offset_right = 44.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_da568")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_fe74o")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Phase" type="Label" parent="UI"]
+modulate = Color(1, 1, 1, 0.541176)
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 52.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_da568")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fe74o")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Victory" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Victory"]
+visible = false
+offset_right = 320.0
+offset_bottom = 160.0
+
+[node name="ResetButton" type="Button" parent="Victory"]
+visible = false
+custom_minimum_size = Vector2(-9.05, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.5
+offset_top = 53.0
+offset_right = 9.5
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(10, 5)
+disabled = true
+
+[connection signal="mouse_entered" from="Camera2D/Area2D" to="Camera2D" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Camera2D/Area2D" to="Camera2D" method="_on_area_2d_mouse_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

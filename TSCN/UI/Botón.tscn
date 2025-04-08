@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://c25mqfipypu1u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_476us"]
+bg_color = Color(1, 0.921569, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmt7p"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2458"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o75wf"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="Theme" id="Theme_gko2o"]
+default_font_size = 8
+
+[node name="Botón" type="Button"]
+custom_minimum_size = Vector2(20, 20)
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/focus = SubResource("StyleBoxFlat_476us")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cmt7p")
+theme_override_styles/hover = SubResource("StyleBoxFlat_476us")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k2458")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o75wf")
+metadata/_edit_group_ = true
+
+[node name="RichTextLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+theme = SubResource("Theme_gko2o")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cross" type="Polygon2D" parent="."]
+visible = false
+color = Color(1, 0.423529, 1, 1)
+polygon = PackedVector2Array(-2, -2, 6, 10, -2, 22, 6, 18, 10, 14, 14, 18, 22, 22, 22, 22, 14, 10, 15.6264, 7.56046, 22, -2, 14, 2, 10, 6, 6, 2)

@@ -1,0 +1,77 @@
+extends Control
+
+
+var tamaño = null
+
+var grid = [ # no podrá ser menor de 4x4
+
+	 [0,Color.WHITE],[1,Color.WHITE],
+	 [0,Color.WHITE],[0,Color.WHITE]
+]
+
+@onready var tablero = $Tablero/Control/PanelJuego
+@onready var trigger = $UI/BoardSize
+
+#var seq = 7 # coeficiente de la secuencia
+#var lastValue = 0
+
+func _ready():
+	
+	Main.mode = "Constructor"
+	Main.boardSize = pow(trigger.value,2) # parche para que la grid se muestre desde el comienzo
+	grid = Main.randomLevel(trigger.value)
+	tablero.createButtons()
+
+
+func _process(delta: float) -> void:
+	
+	
+	
+	trigger.get_node("Label").text = str(int(sqrt(Main.boardSize)))+" x "+str(int(sqrt(Main.boardSize)))
+		# Sistema 1: el tablero es cuadrado
+			# Sigue una secuencia del tipo: 5-7-9-11, por lo que se van sumando cada vez 2 cuadrados
+		# Sistema 2: el tablero se puede ensanchar o manipular su altura de forma manual
+
+	$UI/ColorPickerButton/Color.color = $UI/ColorPickerButton.color
+	#Main.randMax = $UI/RanNum.value
+#
+#func _on_generate_pressed() -> void:
+	#
+	#var panel = load("res://Scenes/panel_juego.tscn").instantiate()
+	#
+	#self.add_child(panel)
+
+
+func _on_board_size_scrolling() -> void:
+	
+	pass
+	
+	
+
+
+#func _on_board_size_changed() -> void:
+#
+	#
+
+
+func _on_board_size_value_changed(value: float) -> void:
+	
+	# ahora mismo está aplicando el último valor al cambiar
+	
+	Main.boardSize = pow(value,2) # valor elevado al cuadrado da el tamaño (3x3 = 9)
+	$UI/RanNum.value = Main.boardSize/2
+	$UI/RanNum.max_value = Main.boardSize
+	
+	tablero.restartScene()
+	tablero.createButtons()
+	
+	#lastValue = value
+
+
+func _on_close_button_down() -> void:
+	get_tree().change_scene_to_file("res://TSCN/UI/MainMenu.tscn")
+
+
+func _on_tema_item_selected(index: int) -> void:
+	
+	Main.applyPhase(index,$Fondo)

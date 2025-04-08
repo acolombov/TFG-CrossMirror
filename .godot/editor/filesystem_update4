@@ -1,0 +1,17 @@
+res://TSCN/UI/MainMenu.tscn
+res://TSCN/Modos/Nivel.tscn
+res://TSCN/Modos/CreadorPaneles.tscn
+res://TSCN/UI/panel_juego.tscn
+res://TSCN/UI/Botón.tscn
+res://TSCN/UI/Guía.tscn
+res://TSCN/UI/ResponsiveWindow.tscn
+res://TSCN/UI/StoryLVL.tscn
+res://TSCN/UI/EndCredits.tscn
+res://Scripts/Singletons/MAIN.gd
+res://Scripts/Game/nivel.gd
+res://Scripts/UI/MainMenu.gd
+res://Scripts/UI/ResponsiveWindow.gd
+res://TSCN/UI/pause_menu.tscn
+res://Scripts/UI/pause_menu.gd
+res://default_bus_layout.tres
+res://Scripts/Singletons/OS.gd

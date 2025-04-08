@@ -1,0 +1,264 @@
+[gd_scene load_steps=10 format=3 uid="uid://cyqq15dnknmgr"]
+
+[ext_resource type="Script" uid="uid://bbwyjalvcr3ms" path="res://Scripts/Game/Constructor.gd" id="1_vioh7"]
+[ext_resource type="PackedScene" uid="uid://qy4uvtvwxbn5" path="res://TSCN/UI/panel_juego.tscn" id="2_la5vy"]
+[ext_resource type="AudioStream" uid="uid://cox24fletynar" path="res://Audio/Sound/Shock.ogg" id="3_lnii0"]
+
+[sub_resource type="Theme" id="Theme_0smuq"]
+
+[sub_resource type="Animation" id="Animation_3ihjc"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_mxuro"]
+resource_name = "Victory"
+length = 3.997
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_120ii"]
+_data = {
+&"RESET": SubResource("Animation_3ihjc"),
+&"Victory": SubResource("Animation_mxuro")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ww68d"]
+bg_color = Color(0.888296, 0.412247, 0.633773, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s3dlj"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 80)
+script = ExtResource("1_vioh7")
+
+[node name="Fondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -96.0
+offset_right = 176.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0smuq")
+
+[node name="Tablero" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 80)
+
+[node name="ColorRect" type="ColorRect" parent="Tablero"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 1, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Tablero"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 1, 1)
+
+[node name="Control" parent="Tablero" instance=ExtResource("2_la5vy")]
+layout_mode = 1
+
+[node name="Guías" type="Control" parent="Tablero"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Horizontal" type="Control" parent="Tablero/Guías"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 352.0
+offset_bottom = 192.0
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="Vertical" type="Control" parent="Tablero/Guías"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 352.0
+offset_bottom = 192.0
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_120ii")
+}
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Save" type="Button" parent="UI"]
+offset_left = 24.0
+offset_top = 4.0
+offset_right = 67.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 12
+text = "save"
+
+[node name="List" type="Button" parent="UI"]
+offset_left = 84.0
+offset_top = 4.0
+offset_right = 127.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 12
+text = "list"
+
+[node name="List2" type="Button" parent="UI"]
+offset_left = 248.0
+offset_top = 28.0
+offset_right = 292.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 12
+text = "Pintar"
+
+[node name="Tema" type="OptionButton" parent="UI"]
+offset_left = 4.0
+offset_top = 124.0
+offset_right = 113.0
+offset_bottom = 155.0
+item_count = 3
+popup/item_0/text = "White"
+popup/item_0/id = 0
+popup/item_1/text = "Blue"
+popup/item_1/id = 1
+popup/item_2/text = "Pink"
+popup/item_2/id = 2
+
+[node name="Close" type="Button" parent="UI"]
+anchors_preset = -1
+anchor_left = -0.453333
+anchor_top = -1.60714
+anchor_right = -0.402833
+anchor_bottom = -1.50714
+offset_left = 145.067
+offset_top = 257.142
+offset_right = 145.067
+offset_bottom = 257.142
+theme_override_styles/normal = SubResource("StyleBoxFlat_ww68d")
+metadata/_edit_use_anchors_ = true
+
+[node name="BoardSize" type="HScrollBar" parent="UI"]
+offset_left = 276.0
+offset_top = 136.0
+offset_right = 316.0
+offset_bottom = 152.0
+min_value = 3.0
+max_value = 10.0
+step = 1.0
+value = 3.0
+rounded = true
+
+[node name="Label" type="Label" parent="UI/BoardSize"]
+layout_mode = 0
+offset_left = -48.0
+offset_top = -8.0
+offset_right = -8.0
+offset_bottom = 15.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="UI"]
+offset_left = 300.0
+offset_top = 20.0
+offset_right = 308.0
+offset_bottom = 28.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_s3dlj")
+
+[node name="Color" type="ColorRect" parent="UI/ColorPickerButton"]
+layout_mode = 0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = -4.0
+color = Color(0.144063, 0.144063, 0.144063, 1)
+
+[node name="ColorPicker" type="ColorPicker" parent="UI/ColorPickerButton/Color"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = -272.0
+offset_right = 472.0
+offset_bottom = 48.0
+color = Color(0.211765, 1, 1, 1)
+picker_shape = 4
+
+[node name="RanNum" type="SpinBox" parent="UI"]
+editor_description = "Número de bloques correctos (Recomen: mitad del grid)"
+offset_left = 236.0
+offset_top = 4.0
+offset_right = 322.563
+offset_bottom = 35.0
+scale = Vector2(0.715, 0.715)
+min_value = 1.0
+max_value = 9.0
+value = 1.0
+alignment = 1
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Audio"]
+
+[node name="Hover" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("3_lnii0")
+bus = &"Sound"
+
+[node name="Move" type="AudioStreamPlayer2D" parent="Audio"]
+stream = ExtResource("3_lnii0")
+
+[node name="Draw" type="AudioStreamPlayer2D" parent="Audio"]
+editor_description = "Al dibujar
+Dependiendo del color podría variar una octava"
+stream = ExtResource("3_lnii0")
+
+[connection signal="pressed" from="UI/Save" to="." method="_on_generate_pressed"]
+[connection signal="pressed" from="UI/List" to="." method="_on_generate_pressed"]
+[connection signal="pressed" from="UI/List2" to="." method="_on_generate_pressed"]
+[connection signal="item_selected" from="UI/Tema" to="." method="_on_tema_item_selected"]
+[connection signal="button_down" from="UI/Close" to="." method="_on_close_button_down"]
+[connection signal="scrolling" from="UI/BoardSize" to="." method="_on_board_size_scrolling"]
+[connection signal="value_changed" from="UI/BoardSize" to="." method="_on_board_size_value_changed"]

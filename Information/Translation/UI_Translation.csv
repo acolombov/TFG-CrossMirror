@@ -1,0 +1,37 @@
+keys,es,en,ca
+
+es,Español,Español,Espanyol
+en,English,English,Anglès
+ca,Catalán,Catalan,Català
+
+new_game,Nueva partida,New game
+continue,Continuar,Continue
+options,Opciones,Options,Opcions
+
+statistics,Estadísticas,Statistics,Estadistiques
+audio, Audio, Audio, Audio
+
+constructor,Creador,Creator,Constructor
+story,Historia,Story,Historia
+infinite,Infinito,Infinite,Infinit
+levels,Niveles,Levels,Nivells
+genMod,Modo generativo,Generative Mode
+level_c,Creador de niveles,Level Creator
+
+controls,Controles,Controls
+language,Idioma,Language,Idioma
+
+pause, Pausa, Pause, Pausa
+resume, Continuar, Resume, Continuar
+
+sound,Sonido,Sound,So
+music,Música,Music,Música
+ambient,Ambiente,Ambient,Ambient
+
+hours_played,Total,Total,Total
+
+thanks_play,Gracias por jugar,Thanks for playing,Gràcies per jugar
+
+data_lost,Se perderán los datos no guardados,The unsaved data will be lost
+
+

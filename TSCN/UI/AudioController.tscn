@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctc0i6661ou0s"]
+
+[ext_resource type="AudioStream" uid="uid://bf6lkwyesltpu" path="res://Audio/Music/Melody.ogg" id="1_pwgha"]
+[ext_resource type="AudioStream" uid="uid://clp1xmjt5kh1" path="res://Audio/Sound/Beat3.ogg" id="2_o4gl7"]
+
+[node name="Audio" type="Node"]
+
+[node name="Musica" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_pwgha")
+autoplay = true
+bus = &"Music"
+
+[node name="Accept" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_o4gl7")
+pitch_scale = 6.0
+bus = &"Sound"
+
+[node name="Move" type="AudioStreamPlayer" parent="."]
+pitch_scale = 16.0
+bus = &"Sound"

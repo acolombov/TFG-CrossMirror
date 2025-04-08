@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://qy4uvtvwxbn5"]
+
+[ext_resource type="Script" uid="uid://dvy8svow235j0" path="res://Scripts/Game/panel_juego.gd" id="1_gfsb2"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 80)
+
+[node name="PanelJuego" type="Control" parent="."]
+editor_description = "Aquí se desarrolla el tablero"
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 80)
+script = ExtResource("1_gfsb2")

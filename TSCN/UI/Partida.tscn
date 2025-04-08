@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu7wb1n0x1rhw"]
+
+[ext_resource type="FontFile" uid="uid://c7tdkhqsvrn8b" path="res://Graphics/Fonts/ABeeZee-Regular.otf" id="1"]
+
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("1")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="FontFile" id="2"]
+fallbacks = Array[Font]([ExtResource("1")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[node name="Partida" type="Control"]
+process_mode = 3
+offset_left = 8.0
+offset_right = 312.0
+offset_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Jugado" type="Label" parent="."]
+offset_left = 68.0
+offset_right = 104.0
+offset_bottom = 20.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = SubResource("1")
+text = "Jugado:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tiempo" type="Label" parent="."]
+offset_left = 112.0
+offset_right = 136.0
+offset_bottom = 20.0
+theme_override_fonts/font = SubResource("2")
+theme_override_colors/font_color = Color(0.721569, 0.529412, 0.788235, 1)
+text = "0:00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Zona" type="Label" parent="."]
+offset_left = 140.0
+offset_right = 172.0
+offset_bottom = 20.0
+theme_override_fonts/font = SubResource("2")
+text = "Zona:"
+align = 1
+valign = 1
+
+[node name="Zona2" type="Label" parent="."]
+offset_left = 176.0
+offset_right = 208.0
+offset_bottom = 20.0
+theme_override_fonts/font = SubResource("2")
+theme_override_colors/font_color = Color(0.721569, 0.537255, 0.729412, 1)
+text = "Pasillo"
+align = 1
+valign = 1

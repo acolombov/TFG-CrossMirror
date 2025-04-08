@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk6f5kr4wo2xv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o75wf"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="Theme" id="Theme_gko2o"]
+default_font_size = 8
+
+[sub_resource type="SystemFont" id="SystemFont_rid7w"]
+
+[node name="Guía" type="Panel"]
+custom_minimum_size = Vector2(20, 20)
+anchors_preset = -1
+anchor_left = 0.031
+anchor_top = 0.062
+anchor_right = 0.031
+anchor_bottom = 0.062
+offset_left = -9.92
+offset_top = -9.92
+offset_right = 10.08
+offset_bottom = 10.08
+pivot_offset = Vector2(10, 10)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_o75wf")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_gko2o")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_rid7w")
+theme_override_font_sizes/font_size = 16
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
