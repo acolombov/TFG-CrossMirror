@@ -274,7 +274,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "A game by"
 horizontal_alignment = 1
 vertical_alignment = 1
-visible_ratio = -0.111111
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="BigMessage2" type="Label" parent="Control"]
 visible = false
@@ -286,7 +287,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Alejandro Colombo"
 horizontal_alignment = 1
 vertical_alignment = 1
-visible_ratio = -0.0588235
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="BigMessage3" type="Label" parent="Control"]
 visible = false
@@ -298,7 +300,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "With the colaboration of"
 horizontal_alignment = 1
 vertical_alignment = 1
-visible_ratio = -0.0416667
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="BigMessage4" type="Label" parent="Control"]
 visible = false

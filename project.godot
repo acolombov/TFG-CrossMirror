@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="CROSS MIRROR"
+config/name="CROSS MIRROR TFG"
 run/main_scene="uid://brkmcjfpa00ky"
 config/features=PackedStringArray("4.4")
 boot_splash/bg_color=Color(0, 0, 0, 1)
